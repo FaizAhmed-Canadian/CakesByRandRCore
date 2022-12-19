@@ -1,0 +1,393 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cakes By R&R</title>
+
+    @*    <link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+    <link href="~/css/css-plugin-collections.css" rel="stylesheet" />
+    <link href="~/css/menuzord-megamenu.css" rel="stylesheet" />
+    <link id="menuzord-menu-skins" href="~/css/menuzord-skins/menuzord-rounded-boxed.css" rel="stylesheet" />
+    <link href="~/css/style-main.css" rel="stylesheet" />
+    <link href="~/css/preloader.css" rel="stylesheet" />
+    <link href="~/css/custom-bootstrap-margin-padding.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+    <link href="~/Content/content.css" rel="stylesheet" />
+    <link href="~/Content/AppStyle.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/component.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/Content/iziModal.min.css" rel="stylesheet">
+
+
+    <script src="~/js/jquery-plugin-collection.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+
+    <script src="~/Scripts/RAndRJavaScripts.js"></script>
+    @*   <script src="~/Scripts/iziModal.min.js"></script>*@
+    <script src="~/Scripts/iziModal.js"></script>
+    <script src="~/js/jquery-2.2.4.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.base64.min.js"></script>
+
+
+
+    <style>
+        .icon-switcher {
+            visibility: hidden;
+        }
+
+        .timeline-Widget--edge {
+            border-radius: 0px !important;
+        }
+
+        ul > li > a {
+            font-family: Kalpurush !important;
+            font-size: 14px;
+        }
+
+        .menuzord-menu > li > a {
+            color: #404040;
+            font-size: 14px;
+        }
+
+        .header.header-floating .header-nav .header-nav-wrapper {
+            background-color: rgba(255, 255, 255, 1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+        }
+
+        .menuzord-menu > li > a {
+            color: #404040;
+            font-size: 14px;
+        }
+
+        .k-autocomplete .k-input, .k-dropdown-wrap .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input, .k-selectbox .k-input, .k-textbox > input {
+            height: 2.1em;
+            line-height: 1.65em;
+            padding: .177em 0;
+            text-indent: .33em;
+            border: 0;
+            margin: 0;
+        }
+
+        .k-textbox .k-icon {
+            top: 50%;
+            margin: -8px -7px 0;
+            position: absolute;
+        }
+
+        .menuzord-menu > li {
+            padding: 14px 0;
+        }
+
+        .showError {
+            display: block;
+            color: red;
+        }
+
+        .hideError {
+            display: none;
+            color: red;
+        }
+
+        .disabledbutton {
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .pageSectionContainer {
+            display: inline-block;
+            width: 98%;
+            border-left: 0px solid #c7c4c4 !important;
+            padding-left: 2% !important;
+            margin-bottom: 0px !important;
+        }
+
+
+        label {
+            display: inline-block;
+            max-width: 100%;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            font-weight: 500 !important;
+        }
+
+        legend {
+            padding: 0.0em 0.01em !important;
+            border: 1px solid #dadada !important;
+            color: #c11 !important;
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            font-size: 90% !important;
+            /* text-align: right !important; */
+            width: auto !important;
+            margin-left: 3% !important;
+        }
+
+        fieldset {
+            border: 1px solid #dadada !important;
+            /*margin-bottom: 10px;*/
+            margin-top: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .k-autocomplete .k-input, .k-dropdown-wrap .k-input, .k-numeric-wrap .k-input, .k-picker-wrap .k-input, .k-selectbox .k-input, .k-textbox > input {
+            height: auto;
+            line-height: 1.65em;
+            padding: .177em 0;
+            text-indent: .33em;
+            border: 0;
+            margin: 0;
+        }
+
+        .k-checkbox-label {
+            position: relative;
+            padding-left: 2.5em;
+            vertical-align: middle;
+            line-height: 1.5em;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+            .k-checkbox-label:before {
+                content: "";
+                position: absolute;
+                top: -3px;
+                left: 0;
+                border-width: 1px;
+                border-style: solid;
+                width: 1em;
+                height: 1em;
+                font-size: 2em;
+                line-height: 1em;
+                text-align: center;
+            }
+
+        .k-radio, input.k-checkbox {
+            display: inline;
+            /* opacity: 0; */
+            width: 22px !important;
+            height: 22px !important;
+            /* margin: 0; */
+            /* -webkit-appearance: none; */
+            /* overflow: hidden; */
+        }
+
+        .no-data-in-grid {
+            padding-top: 150px;
+            font-size: 20px;
+            color: red;
+        }
+
+        .menuzord-menu > li {
+            padding: 2px 0 !important;
+        }
+
+        .menuzord-menu ul.dropdown {
+            /* top: 71px; */
+            /*   top: 33px !important;*/
+            top: 85px;
+        }
+
+        .menuzord-menu.menuzord-right {
+            float: none !important;
+        }
+
+        .menu-center {
+            width: 39% !important;
+            margin: auto;
+        }
+
+        .asterisk {
+            color: #ff0000;
+        }
+        /* .k-picker-wrap {
+                                                            height: 30px;
+                                                            border: 0px;
+                                                        }*/
+        .k-datepicker.k-textbox {
+            line-height: 25px !important;
+        }
+
+        .k-textbox {
+            line-height: 25px;
+        }
+
+        .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+            opacity: 0.25;
+        }
+
+        .k-list-filter > .k-textbox {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 90%
+        }
+
+        .content-form-title {
+            margin: 0px -10px 10px -10px !important;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 40px;
+        }
+
+        body {
+          margin: 0;
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+
+    <div id="showMsg" class="iziModal" style="z-index:99999999999;"></div>
+    <div id="showErrorMsg" class="iziModal" style="z-index:99999999999"></div>
+    <div id="showWarningMsg" class="iziModal" style="z-index:99999999999"></div>
+
+
+    <div class="row">
+
+        <header>
+            <nav class="navbar navbar-sticky navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="position:sticky; background-color:beige  !important;">
+                <div class="container-fluid">
+
+                    <div class="col-md-6" style="padding-left:0px">
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <div class="" id="web_title">
+                                        <img src="~/Images/RAndRLogo.jpg" style="margin-top:-8px;" width="40" height="40" />
+                                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-family: Times New Roman; font-size: 16px; font-weight:bold">CAKES BY R&R</a>
+                                    </div>
+                                </li>
+                                @*  <li class="nav-item" >
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Test" asp-action="CreateStudent">Create Student</a>
+                                </li>*@
+                                @*
+                                <li class="nav-item" >
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Test" asp-action="ShowHideDropdown">ShowHide Dropdown</a>
+                                </li>*@
+
+                            </ul>
+                        </div>
+                    </div>
+                   @* <div class="col-md-6" >*@
+                        <div>
+                            <partial name="_LoginPartial" />
+                        </div>
+                 @*   </div>*@
+                </div>
+
+            </nav>
+
+        </header>
+
+    </div>
+
+
+    <div class="row">
+
+@*        <div class="col-md-6">
+            @(await Component.InvokeAsync("PublicMenu"))
+        </div>*@
+
+
+        <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+    </div>
+
+
+    @*    <div class="w-100"></div>
+
+    <div class="col">
+    @(await Component.InvokeAsync("PublicMenu"))
+    </div>
+    *@
+
+
+
+
+    <!-- Footer -->
+
+    <div id="footer" class="footer" style="background-color:beige !important;">
+        <div class="container pt-1 pb-1">
+
+            <div class="row">
+                <div class="col-md-4 offset-md-4" style="text-align:center">
+                    <p class="font-12 text-black-777 m-0 sm-text-center">@DateTime.Now.Year - Cakes By R&R | All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- JS | Custom script for all pages -->
+    @*<script src="~/js/custom.js"></script>
+    <script src="~/js/date.js"></script>*@
+    <script>
+
+        (function ($) {
+            if ($(window).width() < 700) {
+                $('#mobile_title').removeClass('hidden');
+                $('#web_title').addClass('hidden');
+                $('.forMobile').removeClass('hidden');
+                $('.forCom').addClass('hidden');
+                $('#navUl').removeClass('menu-center');
+                $('.main-content').css('margin-top', '0');
+            }
+            else {
+                $('#web_title').removeClass('hidden');
+                $('#mobile_title').addClass('hidden');
+                $('.forMobile').addClass('hidden');
+                $('.forCom').removeClass('hidden');
+                $('#navUl').addClass('menu-center');
+            }
+
+            //var pageHeight = $(document).height() - 3; // $('#body')[0].offsetHeight;
+            //var header = $('#header').height(); //$('#header')[0].offsetHeight;
+            //var foother = $('#footer').height(); //$('#footer')[0].offsetHeight;
+            //var mainContant = pageHeight - header - foother;
+            ////console.log(mainContant);
+            //$('#mainContent').css('min-height', mainContant + 'px');
+            //alert(mainContant);
+        })(jQuery);
+
+    </script>
+
+</body>
+</html>

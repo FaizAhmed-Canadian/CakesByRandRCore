@@ -1,0 +1,27 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_PublicLayout2.cshtml";
+}
+
+
+
+
+<div style="padding-top:50px">
+    <h2>Manage Account:</h2>
+    @*<div class="content-form-title"> <h2 id="title" style="font-size:20px;">Manage account:</h2></div>*@
+</div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-10">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

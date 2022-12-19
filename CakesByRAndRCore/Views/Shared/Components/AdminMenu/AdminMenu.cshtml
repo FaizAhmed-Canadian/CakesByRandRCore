@@ -1,0 +1,72 @@
+﻿@model CakesByRAndRCore.Models.AdminMenu
+@{
+    Layout = null;
+}
+
+<style>
+
+
+            ul li:hover ul.dropdown-menu {
+                display: block; /* Display the dropdown */
+            }
+
+            ul li ul.dropdown-menu li {
+                display: block;
+            }
+</style>
+
+
+@foreach (var item in Model.Menu)
+{
+    <li style="float:left">
+        
+        @*<a href="javascript:void(0)" style="text-transform: capitalize;">@item.TextEng<span class="label label-danger"></span></a>*@
+        <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link text-dark dropdown-toggle" style="text-transform: capitalize;">@item.TextEng<span class="caret"></span></a>
+
+        <ul class="dropdown-menu">
+            @foreach (var itemC in item.ChildMenus)
+            {
+                if (itemC.ChildMenus.Count() > 0)
+                {
+                    <li style="float:left">
+                        <a href="javascript:void(0)" style="text-transform: capitalize;">@itemC.TextEng<span class="label label-danger"></span></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var itemD in itemC.ChildMenus)
+                            {
+                                if (itemD.ChildMenus.Count() > 0)
+                                {
+                                    <li style="float:left">
+                                        <a href="javascript:void(0)" style="text-transform: capitalize;">@itemD.TextEng<span class="label label-danger"></span></a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var itemE in itemD.ChildMenus)
+                                            {
+                                                <li>
+                                                    <a href="@itemE.URL" class="nav-link text-dark">> @itemE.TextEng</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@itemD.URL" class="nav-link text-dark">> @itemD.TextEng</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@itemC.URL" class="nav-link text-dark">> @itemC.TextEng</a>
+                    </li>
+                }
+            }
+        </ul>
+    </li>
+
+
+}
+

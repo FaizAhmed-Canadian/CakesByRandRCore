@@ -1,0 +1,38 @@
+﻿@model List<CakesByRAndRCore.Models.UserRolesViewModel>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+
+<div class="col-md-8 offset-md-2">
+    <br />
+    <div class="content-form-title"> <h2 id="title" style="font-size:20px;">Users:</h2></div>
+    <br />
+<table class="table ">
+    <thead>
+        <tr>
+            <th>User Name</th>
+@*            <th>Last Name</th>*@
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                    <td>@user.FirstName  @user.LastName</td>
+@*                <td>@user.LastName</td>*@
+                <td>@user.Email</td>
+                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                <td>
+                        <a class="btn btn-primary" asp-controller="AdminAndSetup" asp-action="ManageUserRoles" asp-route-userId="@user.UserId">Manage Roles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</div>

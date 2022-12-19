@@ -1,0 +1,13 @@
+﻿@using CakesByRAndRCore.Models
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a href="/AdminAndSetup/ManageProfile" class="nav-link text-dark"><i class="fa fa-hand-point-right"></i>View/Edit Profile</a></li>
+    <li class="nav-item"><a href="/AdminAndSetup/ManageAddress" class="nav-link text-dark"><i class="fa fa-hand-point-right"></i>Manage Address</a></li>
+    <li class="nav-item"><a href="/AdminAndSetup/ChangePassword" class="nav-link text-dark"><i class="fa fa-hand-point-right"></i>Change Password</a></li>
+</ul>
+

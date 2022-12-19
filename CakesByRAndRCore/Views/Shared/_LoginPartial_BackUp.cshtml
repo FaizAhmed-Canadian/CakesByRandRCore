@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+<nav id="menuzord-rtl">
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+
+
+            @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+            {
+                <li class="nav-item">
+                    <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+                </li>
+                <li style="float:right;" id="user">
+                    <a href="/AdminAndSetup/ManageProfile" class="nav-link text-dark" style="font-family: Times New Roman; font-size: 16px; font-weight:bold">@User.Identity?.Name!</a>
+                </li>
+            }
+            else
+            {
+                <li style="float:right;" id="user">
+                    <a href="/AdminAndSetup/ManageProfile" class="nav-link text-dark"><i class="fa fa-hand-point-right"></i>@User.Identity?.Name!</a>
+                </li>
+            }
+
+
+            <li class="nav-item">
+                <a href="/AppUserAuthentication/Logout" class="nav-link text-dark"><i class="fa fa-hand-point-right"></i>Logout</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a href="/AdminAndSetup/CreateUser" class="nav-link text-dark" style="font-family: Times New Roman; font-size: 16px; font-weight:bold"><i class="fa fa-hand-point-right"></i> Register</a>
+            </li>
+            <li class="nav-item">
+                <a href="/AppUserAuthentication/Login" class="nav-link text-dark" style="font-family: Times New Roman; font-size: 16px; font-weight:bold"><i class="fa fa-hand-point-right"></i> Login</a>
+            </li>
+
+
+
+        }
+    </ul>
+</nav>
